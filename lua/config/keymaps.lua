@@ -25,6 +25,7 @@ map("n", "<Leader>aa", ":A<cr>", { desc = "Show Alternative file with rails-vim 
 map("n", "<Leader>ga", ":Git add %<cr>", { desc = "Stage current file", silent = true, remap = false })
 map("n", "<Leader>gs", ":Git<cr>", { desc = "Show fugitive git status", silent = true, remap = false })
 map("n", "<Leader>gl", ":Gllog<cr>", { desc = "Show fugitive git log", silent = true, remap = false })
+map('n', '<leader>sgs', ':Telescope git_status<CR>', { noremap = true, silent = true })
 map("n", "]h", ":GitGutterNextHunk<cr>", { desc = "Go to next hunk", silent = true, remap = true })
 map("n", "[h", ":GitGutterPrevHunk<cr>", { desc = "Go to previous hunk", silent = true, remap = true })
 
@@ -48,4 +49,4 @@ vim.keymap.set({"i", "s"}, "<C-E>", function()
 	end
 end, {silent = true})
 
-map('i', '<Tab>', 'copilot#Accept("\\<CR>")', { expr = true, replace_keycodes = false, remap = false })
+-- map('i', '<Tab>', 'copilot#Accept("\\<CR>")', { expr = true, replace_keycodes = false, remap = false })

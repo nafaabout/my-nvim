@@ -3,7 +3,7 @@
 -- Add any additional options here
 
 vim.g.blamer_enabled = true
-vim.g.blamer_delay = 200
+vim.g.blamer_delay = 1000
 vim.g.blamer_show_in_insert_modes = 0
 vim.g.blamer_prefix = " >>> "
 vim.g.blamer_template = "<committer> / <committer-time>:  <summary>"
