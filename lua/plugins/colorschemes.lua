@@ -33,7 +33,8 @@ return {
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "sonokai",
+      colorscheme = "onenord-light",
+      -- colorscheme = "sonokai",
       -- colorscheme = "carbonfox",
       -- colorscheme = "catppuccin",
       -- colorscheme = "gruvbox-material",

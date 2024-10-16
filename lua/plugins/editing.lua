@@ -1,6 +1,5 @@
 return {
   { "norcalli/nvim-colorizer.lua" },
-  {  "folke/which-key.nvim", enabled = false },
   {
     "nvim-tree/nvim-tree.lua",
     version = "*",
@@ -176,12 +175,26 @@ return {
 
   {
     "nvim-telescope/telescope.nvim",
-    keys = { { "<leader>ff", "<cmd>Telescope find_files<cr>", desc = "Find Files" } },
+    -- keys = { { "<leader>ff", "<cmd>Telescope find_files<cr>", desc = "Find Files" } },
   },
   {
     "supermaven-inc/supermaven-nvim",
     config = function()
-      require("supermaven-nvim").setup({})
+      require("supermaven-nvim").setup({
+        keymaps = {
+          accept_suggestion = "<Right>",
+          clear_suggestion = "<C-]>",
+          accept_word = "<C-j>",
+        },
+        color = {
+          suggestion_color = "#ff51c5",
+          cterm=255,
+          cterm_colors = true,
+        },
+      })
     end,
+  },
+  {
+    "docker/docker",
   },
 }

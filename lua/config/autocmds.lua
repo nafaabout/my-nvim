@@ -11,8 +11,8 @@ augroup myvimrc
   autocmd BufRead,BufNewFile *.vue set ft=vue.html
   autocmd BufWritePre Gemfile let b:changed = &modified
   autocmd BufWritePost Gemfile if b:changed then | call jobstart("bundle install", { 'detach':1 }) | endif
-  autocmd BufWritePost **/p1tsa/*.*{rb,ts,js,html,scss,css,json,jbuilder,erb,sh} !docker exec -d p1tsa_p1tsa_1 make rsync_sources
-  autocmd BufWritePost **/p1tsa/*.* silent !docker exec -d pta-dist_p1tsa make rsync_sources
+  autocmd BufWritePost **/p1tsa/*.* !docker exec -d p1tsa_p1tsa_1 make rsync_sources
+  " autocmd BufWritePost **/p1tsa/*.* silent !docker exec -d pta-dist_p1tsa make rsync_sources
 augroup END
 ]])
 
