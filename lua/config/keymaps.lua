@@ -3,73 +3,73 @@
 -- Add any additional keymaps here
 
 local function map(mode, lhs, rhs, opts)
-  local keys = require("lazy.core.handler").handlers.keys
-  ---@cast keys LazyKeysHandler
-  -- do not create the keymap if a lazy keys handler exists
-  if not keys.active[keys.parse({ lhs, mode = mode }).id] then
-    opts = opts or {}
-    opts.silent = opts.silent ~= false
-    if opts.remap and not vim.g.vscode then
-      opts.remap = nil
-    end
-    vim.keymap.set(mode, lhs, rhs, opts)
+  opts = opts or {}
+  opts.silent = opts.silent ~= false
+  if opts.remap and not vim.g.vscode then
+    opts.remap = nil
   end
+  vim.keymap.set(mode, lhs, rhs, opts)
 end
 
-map("n", "<Leader>tb", ":TagbarOpen fj<cr>", { desc = "Open Tagbar and jump into it", silent = true })
-map("n", "<Leader>tbc", ":TagbarClose<cr>", { desc = "Close Tagbar", silent = true })
-map("n", "<Leader>rr", ":R<cr>", { desc = "Show Relative file with rails-vim :R", silent = true })
-map("n", "<Leader>aa", ":A<cr>", { desc = "Show Alternative file with rails-vim :R", silent = true })
+-- Tagbar
+map("n", "<Leader>tb", ":TagbarOpen fj<cr>", { desc = "Open Tagbar and jump into it" })
+map("n", "<Leader>tbc", ":TagbarClose<cr>", { desc = "Close Tagbar" })
 
--- Git - fugitive
-map("n", "<Leader>ga", ":Git add %<cr>", { desc = "Stage current file", silent = true, remap = false })
-map("n", "<Leader>gs", ":Git<cr>", { desc = "Show fugitive git status", silent = true, remap = false })
-map("n", "<Leader>gl", ":Gllog<cr>", { desc = "Show fugitive git log", silent = true, remap = false })
-map('n', '<leader>sgs', ':Telescope git_status<CR>', { noremap = true, silent = true })
-map('n', '<leader>fi', ':lua require("telescope.builtin").find_files({no_ignore = true})<CR>', { noremap = true, silent = true })
-map("n", "]h", ":GitGutterNextHunk<cr>", { desc = "Go to next hunk", silent = true, remap = true })
-map("n", "[h", ":GitGutterPrevHunk<cr>", { desc = "Go to previous hunk", silent = true, remap = true })
+-- Rails.vim
+map("n", "<Leader>rr", ":R<cr>", { desc = "Show Relative file with rails-vim :R" })
+map("n", "<Leader>aa", ":A<cr>", { desc = "Show Alternative file with rails-vim :R" })
+
+-- Git - fugitive and GitGutter
+map("n", "<Leader>ga", ":Git add %<cr>", { desc = "Stage current file" })
+map("n", "<Leader>gs", ":Git<cr>", { desc = "Show fugitive git status" })
+map("n", "<Leader>gl", ":Gllog<cr>", { desc = "Show fugitive git log" })
+map("n", "<leader>sgs", ":Telescope git_status<CR>", { desc = "Telescope git status" })
+map("n", "]h", ":GitGutterNextHunk<cr>", { desc = "Go to next hunk", remap = true })
+map("n", "[h", ":GitGutterPrevHunk<cr>", { desc = "Go to previous hunk", remap = true })
+
+-- Telescope
+map("n", "<leader>fi", ":lua require('telescope.builtin').find_files({no_ignore = true})<CR>", { desc = "Find files (including ignored)" })
 
 -- Inlay Hints
-map('n', '<leader>ih', ':lua vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())<CR>', { noremap = true, silent = true })
+map("n", "<leader>ih", ":lua vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())<CR>", { desc = "Toggle inlay hints" })
+
 -- Highlight
-map("n", "<Leader>hh", ":noh<cr>", { desc = "Clear Search Highlight", silent = true })
+map("n", "<Leader>hh", ":noh<cr>", { desc = "Clear Search Highlight" })
 
 -- NvimTree
-map("n", "<Leader>fe", ":NvimTreeFindFile<cr>", { desc = "Find File in NvimTree", silent = true })
-map("n", "<Leader>fo", ":NvimTreeOpen<cr>", { desc = "Open NvimTree", silent = true })
+map("n", "<Leader>fe", ":NvimTreeFindFile<cr>", { desc = "Find File in NvimTree" })
+map("n", "<Leader>fo", ":NvimTreeOpen<cr>", { desc = "Open NvimTree" })
 
--- vim.g.copilot_no_tab_map = true
---
+-- LuaSnip
 local ls = require("luasnip")
 vim.keymap.set({"i"}, "<C-K>", function() ls.expand() end, {silent = true})
 vim.keymap.set({"i", "s"}, "<C-L>", function() ls.jump( 1) end, {silent = true})
 vim.keymap.set({"i", "s"}, "<C-J>", function() ls.jump(-1) end, {silent = true})
-
 vim.keymap.set({"i", "s"}, "<C-E>", function()
-	if ls.choice_active() then
-		ls.change_choice(1)
-	end
+  if ls.choice_active() then
+    ls.change_choice(1)
+  end
 end, {silent = true})
 
--- map('i', '<Tab>', 'copilot#Accept("\\<CR>")', { expr = true, replace_keycodes = false, remap = false })
-
+-- Search word under cursor
 vim.keymap.set('n', '<leader>*', function()
     local word = vim.fn.expand('<cWORD>')
     local escaped_word = vim.fn.fnameescape(word)
     vim.cmd('execute "' .. escaped_word .. '"')
-end, { desc = "Search word under cursor", silent = true })
+end, { desc = "Search word under cursor" })
 
-
-
--- searching files with a deterministic pattern other than the fuzzy find_files command
-function FindFilesByExtension(ext)
-    local opts = {
-        prompt_title = "< Find Files by Extension >",
-        find_command = {'fd', '--type', 'f', '--extension', ext}
-    }
-    require('telescope.builtin').find_files(opts)
+-- Find files by extension or full path
+local function find_files_by(type, prompt)
+  return function()
+    local input = vim.fn.input(prompt .. ': ')
+    if input ~= "" then
+      require('telescope.builtin').find_files({
+        prompt_title = "< Find Files by " .. prompt .. " >",
+        find_command = {'fd', '--type', 'f', '--' .. type, input}
+      })
+    end
+  end
 end
 
--- Key mapping example, here using <Leader>e, replace with a combination you prefer
-vim.api.nvim_set_keymap('n', '<Leader>e', ":lua FindFilesByExtension(vim.fn.input('Extension: '))<CR>", { noremap = true, silent = true })
+map("n", "<Leader>fx", find_files_by("extension", "Extension"), { desc = "Find files by extension" })
+map("n", "<Leader>fp", find_files_by("full-path", "Full Path"), { desc = "Find files by full path" })
