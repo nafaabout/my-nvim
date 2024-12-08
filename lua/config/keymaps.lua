@@ -37,8 +37,8 @@ map("n", "<leader>ih", ":lua vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is
 map("n", "<Leader>hh", ":noh<cr>", { desc = "Clear Search Highlight" })
 
 -- NvimTree
-map("n", "<Leader>fe", ":NvimTreeFindFile<cr>", { desc = "Find File in NvimTree" })
-map("n", "<Leader>fo", ":NvimTreeOpen<cr>", { desc = "Open NvimTree" })
+-- map("n", "<Leader>fe", ":NvimTreeFindFile<cr>", { desc = "Find File in NvimTree" })
+-- map("n", "<Leader>fo", ":NvimTreeOpen<cr>", { desc = "Open NvimTree" })
 
 -- LuaSnip
 local ls = require("luasnip")
@@ -73,3 +73,19 @@ end
 
 map("n", "<Leader>fx", find_files_by("extension", "Extension"), { desc = "Find files by extension" })
 map("n", "<Leader>fp", find_files_by("full-path", "Full Path"), { desc = "Find files by full path" })
+
+-- typescript-tools
+map("n", "<leader>to", ":TSToolsOrganizeImports<CR>", { desc = "Organize Imports" })
+map("n", "<leader>ts", ":TSToolsSortImports<CR>", { desc = "Sort Imports" })
+map("n", "<leader>tru", ":TSToolsRemoveUnusedImports<CR>", { desc = "Remove Unused Imports" })
+map("n", "<leader>tu", ":TSToolsRemoveUnused<CR>", { desc = "Remove All Unused" })
+map("n", "<leader>ta", ":TSToolsAddMissingImports<CR>", { desc = "Add Missing Imports" })
+map("n", "<leader>tf", ":TSToolsFixAll<CR>", { desc = "Fix All" })
+map("n", "<leader>tg", ":TSToolsGoToSourceDefinition<CR>", { desc = "Go To Source Definition" })
+map("n", "<leader>tr", ":TSToolsRenameFile<CR>", { desc = "Rename File" })
+map("n", "<leader>tfr", ":TSToolsFileReferences<CR>", { desc = "Find File References" })
+
+
+-- Eslint keymaps
+map("n", "<leader>f", "mF:%!eslint_d --stdin --fix-to-stdout --stdin-filename %<CR>`F", { desc = "Autofix entire buffer with eslint_d" })
+map("v", "<leader>f", ":!eslint_d --stdin --fix-to-stdout<CR>gv", { desc = "Autofix visual selection with eslint_d" })

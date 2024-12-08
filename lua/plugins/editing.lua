@@ -2,6 +2,7 @@ return {
   { "norcalli/nvim-colorizer.lua" },
   {
     "nvim-tree/nvim-tree.lua",
+    enabled = false,
     version = "*",
     lazy = false,
     dependencies = {
@@ -13,32 +14,26 @@ return {
   },
   {
     "nvim-neo-tree/neo-tree.nvim",
-    enabled = false,
     keys = {
       {
         "<leader>fe",
         function()
+          require("neo-tree").setup({
+            filesystem = {
+              filtered_items = {
+                visible = true, -- when true, they will just be displayed differently than normal items
+              },
+            },
+          })
           require("neo-tree.command").execute({
             toggle = false,
-            reveal_force_cwd = true,
-            dir = LazyVim.root(),
+            reveal = { side = "left", max_width = 0.3 },
+            dir = vim.uv.cwd(),
           })
         end,
         desc = "Explorer NeoTree (Root Dir)",
       },
-      {
-        "<leader>fE",
-        function()
-          require("neo-tree.command").execute({
-            toggle = false,
-            reveal_force_cwd = true,
-            dir = vim.uv.cwd(),
-          })
-        end,
-        desc = "Explorer NeoTree (cwd)",
-      },
       { "<leader>e", "<leader>fe", desc = "Explorer NeoTree (Root Dir)", remap = true },
-      { "<leader>E", "<leader>fE", desc = "Explorer NeoTree (cwd)", remap = true },
       {
         "<leader>ge",
         function()
@@ -196,5 +191,16 @@ return {
   },
   {
     "docker/docker",
-  },
+    opts = {
+      lspconfig = {
+        settings = {
+          docker = {
+            diagnostics = {
+              disable = { "SC2016" }
+            }
+          }
+        }
+      }
+    }
+  }
 }

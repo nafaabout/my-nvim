@@ -2,6 +2,7 @@ return {
   { "rhysd/git-messenger.vim" },
   { "airblade/vim-gitgutter", enabled = true },
   { "tpope/vim-fugitive" },
+  { "tpope/vim-rhubarb" },
   { "lewis6991/gitsigns.nvim", enabled = false },
   { "APZelos/blamer.nvim" },
   {

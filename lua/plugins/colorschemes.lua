@@ -39,6 +39,7 @@ return {
       -- colorscheme = "catppuccin",
       -- colorscheme = "gruvbox-material",
       -- colorscheme = "onenord",
+      -- colorscheme = "wwdc17",
       -- colorscheme = "OceanicNext",
     },
   },
