@@ -12,36 +12,36 @@ local function map(mode, lhs, rhs, opts)
 end
 
 -- Tagbar
-map("n", "<Leader>tb", ":TagbarOpen fj<cr>", { desc = "Open Tagbar and jump into it" })
-map("n", "<Leader>tbc", ":TagbarClose<cr>", { desc = "Close Tagbar" })
+map("n", "<Space>tb", ":TagbarOpen fj<cr>", { desc = "Open Tagbar and jump into it" })
+map("n", "<Space>tbc", ":TagbarClose<cr>", { desc = "Close Tagbar" })
 
 -- Rails.vim
-map("n", "<Leader>rr", ":R<cr>", { desc = "Show Relative file with rails-vim :R" })
-map("n", "<Leader>aa", ":A<cr>", { desc = "Show Alternative file with rails-vim :R" })
+map("n", "<Space>rr", ":R<cr>", { desc = "Show Relative file with rails-vim :R" })
+map("n", "<Space>aa", ":A<cr>", { desc = "Show Alternative file with rails-vim :R" })
 
 -- Git - fugitive and GitGutter
-map("n", "<Leader>ga", ":Git add %<cr>", { desc = "Stage current file" })
-map("n", "<Leader>gs", ":Git<cr>", { desc = "Show fugitive git status" })
-map("n", "<Leader>gl", ":Gllog<cr>", { desc = "Show fugitive git log" })
-map("n", "<leader>sgs", ":Telescope git_status<CR>", { desc = "Telescope git status" })
+map("n", "<Space>ga", ":Git add %<cr>", { desc = "Stage current file" })
+map("n", "<Space>gs", ":Git<cr>", { desc = "Show fugitive git status" })
+map("n", "<Space>gl", ":Gllog<cr>", { desc = "Show fugitive git log" })
+map("n", "<Space>sgs", ":Telescope git_status<CR>", { desc = "Telescope git status" })
 map("n", "]h", ":GitGutterNextHunk<cr>", { desc = "Go to next hunk", remap = true })
 map("n", "[h", ":GitGutterPrevHunk<cr>", { desc = "Go to previous hunk", remap = true })
 
 -- Telescope
-map("n", "<leader>fi", ":lua require('telescope.builtin').find_files({no_ignore = true})<CR>", { desc = "Find files (including ignored)" })
+map("n", "<Space>fi", ":lua require('telescope.builtin').find_files({no_ignore = true})<CR>", { desc = "Find files (including ignored)" })
 
 -- Inlay Hints
-map("n", "<leader>ih", ":lua vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())<CR>", { desc = "Toggle inlay hints" })
+map("n", "<Space>ih", ":lua vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())<CR>", { desc = "Toggle inlay hints" })
 
 -- Highlight
-map("n", "<Leader>hh", ":noh<cr>", { desc = "Clear Search Highlight" })
+map("n", "<Space>hh", ":noh<cr>", { desc = "Clear Search Highlight" })
 
 -- Copy current buffer path
-map("n", "<Leader>cp", ":let @+=expand('%:p')<CR>", { desc = "Copy current buffer path" })
+map("n", "<Space>cp", ":let @+=expand('%:p')<CR>", { desc = "Copy current buffer path" })
 
 -- NvimTree
--- map("n", "<Leader>fe", ":NvimTreeFindFile<cr>", { desc = "Find File in NvimTree" })
--- map("n", "<Leader>fo", ":NvimTreeOpen<cr>", { desc = "Open NvimTree" })
+-- map("n", "<Space>fe", ":NvimTreeFindFile<cr>", { desc = "Find File in NvimTree" })
+-- map("n", "<Space>fo", ":NvimTreeOpen<cr>", { desc = "Open NvimTree" })
 
 -- LuaSnip
 local ls = require("luasnip")
@@ -55,7 +55,7 @@ vim.keymap.set({"i", "s"}, "<C-E>", function()
 end, {silent = true})
 
 -- Search word under cursor
-vim.keymap.set('n', '<leader>*', function()
+vim.keymap.set('n', '<Space>*', function()
     local word = vim.fn.expand('<cWORD>')
     local escaped_word = vim.fn.fnameescape(word)
     vim.cmd('execute "' .. escaped_word .. '"')
@@ -74,26 +74,26 @@ local function find_files_by(type, prompt)
   end
 end
 
-map("n", "<Leader>fx", find_files_by("extension", "Extension"), { desc = "Find files by extension" })
-map("n", "<Leader>fp", find_files_by("full-path", "Full Path"), { desc = "Find files by full path" })
+map("n", "<Space>fx", find_files_by("extension", "Extension"), { desc = "Find files by extension" })
+map("n", "<Space>fp", find_files_by("full-path", "Full Path"), { desc = "Find files by full path" })
 
 -- Go To Definition
-map("n", "<leader>gd", ":Telescope lsp_definitions<CR>", { desc = "Go To Definition" })
+map("n", "<Space>gd", ":Telescope lsp_definitions<CR>", { desc = "Go To Definition" })
 vim.keymap.set('n', 'gd', vim.lsp.buf.definition, {})
 vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, {})
 -- typescript-tools
-map("n", "<leader>to", ":TSToolsOrganizeImports<CR>", { desc = "Organize Imports" })
-map("n", "<leader>ts", ":TSToolsSortImports<CR>", { desc = "Sort Imports" })
-map("n", "<leader>tru", ":TSToolsRemoveUnusedImports<CR>", { desc = "Remove Unused Imports" })
-map("n", "<leader>tu", ":TSToolsRemoveUnused<CR>", { desc = "Remove All Unused" })
-map("n", "<leader>ta", ":TSToolsAddMissingImports<CR>", { desc = "Add Missing Imports" })
-map("n", "<leader>tf", ":TSToolsFixAll<CR>", { desc = "Fix All" })
-map("n", "<leader>tg", ":TSToolsGoToSourceDefinition<CR>", { desc = "Go To Source Definition" })
-map("n", "<leader>tr", ":TSToolsRenameFile<CR>", { desc = "Rename File" })
-map("n", "<leader>tfr", ":TSToolsFileReferences<CR>", { desc = "Find File References" })
+map("n", "<Space>to", ":TSToolsOrganizeImports<CR>", { desc = "Organize Imports" })
+map("n", "<Space>ts", ":TSToolsSortImports<CR>", { desc = "Sort Imports" })
+map("n", "<Space>tru", ":TSToolsRemoveUnusedImports<CR>", { desc = "Remove Unused Imports" })
+map("n", "<Space>tu", ":TSToolsRemoveUnused<CR>", { desc = "Remove All Unused" })
+map("n", "<Space>ta", ":TSToolsAddMissingImports<CR>", { desc = "Add Missing Imports" })
+map("n", "<Space>tf", ":TSToolsFixAll<CR>", { desc = "Fix All" })
+map("n", "<Space>tg", ":TSToolsGoToSourceDefinition<CR>", { desc = "Go To Source Definition" })
+map("n", "<Space>tr", ":TSToolsRenameFile<CR>", { desc = "Rename File" })
+map("n", "<Space>tfr", ":TSToolsFileReferences<CR>", { desc = "Find File References" })
 
 
 -- Eslint keymaps
-map("n", "<leader>f", "mF:%!eslint_d --stdin --fix-to-stdout --stdin-filename %<CR>`F", { desc = "Autofix entire buffer with eslint_d" })
-map("v", "<leader>f", ":!eslint_d --stdin --fix-to-stdout<CR>gv", { desc = "Autofix visual selection with eslint_d" })
+map("n", "<Space>f", "mF:%!eslint_d --stdin --fix-to-stdout --stdin-filename %<CR>`F", { desc = "Autofix entire buffer with eslint_d" })
+map("v", "<Space>f", ":!eslint_d --stdin --fix-to-stdout<CR>gv", { desc = "Autofix visual selection with eslint_d" })
 

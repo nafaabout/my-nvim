@@ -202,5 +202,6 @@ return {
         }
       })
     end
-  }
+  },
+  { "ibhagwan/fzf-lua", lazy = false },
 }
