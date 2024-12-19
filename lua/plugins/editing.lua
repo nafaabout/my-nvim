@@ -191,8 +191,8 @@ return {
   },
   {
     "docker/docker",
-    opts = {
-      lspconfig = {
+    config = function()
+      require("lspconfig").docker.setup({
         settings = {
           docker = {
             diagnostics = {
@@ -200,7 +200,7 @@ return {
             }
           }
         }
-      }
-    }
+      })
+    end
   }
 }
